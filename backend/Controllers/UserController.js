@@ -1,6 +1,8 @@
 const userModel = require("../Model/userModel");
 const jwtToken = require("../Services/jwtToekn");
 const validator = require("validator");
+const otpgenerate = require("../Services/generateOtp");
+const sendEmail = require("../Services/emailSend");
 //user
 
 exports.login = async (req, res) => {
@@ -49,13 +51,15 @@ exports.SignupUser = async (req, res) => {
         message: "Email already in use",
       });
     }
-    const user = await userModel.signup(userName, email, password);
-    const token = jwtToken.createToken(user._id);
-    res.setHeader("Headers", token);
-    res.cookie("token", token, { httpOnly: true });
+    const otp = otpgenerate.generateOTP();
+
+    const user = await userModel.signup(userName, email, password, otp);
+
+    // res.setHeader("Headers", token);
+
+    sendEmail.sendVerifyMail(user.email, otp);
     res.status(201).json({
       status: true,
-      token,
       message: "user register",
     });
   } catch (error) {
@@ -64,4 +68,30 @@ exports.SignupUser = async (req, res) => {
       error: error.message,
     });
   }
+};
+
+exports.otpVerify = async (req, res) => {
+  const { otp } = req.body;
+  if (!otp) {
+    return res.status(400).json({
+      status: false,
+      message: "bad request",
+    });
+  }
+  const user = await userModel.findOne({ otp: otp });
+  if (!user) {
+    return res.status(404).json({
+      status: 404,
+      message: "user not found",
+    });
+  }
+  user.isVerified = true;
+  user.otp = undefined;
+  await user.save();
+  const token = jwtToken.createToken(user._id);
+  res.cookie("token", token, { httpOnly: true });
+  res.status(201).json({
+    status: true,
+    message: "user verify successful",
+  });
 };
