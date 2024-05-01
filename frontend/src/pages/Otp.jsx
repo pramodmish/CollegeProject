@@ -1,9 +1,12 @@
 import React, { useId, useState } from "react";
 import axios from "axios";
 import { Input, Button } from "../components/index";
+
 function Otp() {
   const id = useId();
   const [otp, setOtp] = useState("");
+  const [status, setStatus] = useState("");
+  const [error, setError] = useState("");
   const handleOtp = (e) => {
     e.preventDefault();
     axios
@@ -11,15 +14,42 @@ function Otp() {
         otp: otp,
       })
       .then((res) => {
-        console.log(res.data);
+        if (res.status === 400) {
+          console.log(res.status);
+          setStatus("Warning");
+          setError("Bad request");
+        } else if (res.status === 201) {
+          setStatus("success");
+          setError("user verify successful");
+        } else if (res.status === 204) {
+          setStatus("Warning");
+          setError("please fill the otp");
+        }
+        setTimeout(() => {
+          setStatus("");
+          setError("");
+        }, 5000);
       })
       .catch((err) => {
+        setStatus("error");
+        setError("invelid otp");
         console.log(err);
       });
     setOtp("");
   };
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex flex-col gap-5 justify-center items-center h-screen">
+      <h1
+        className={`${
+          status === "success" && "text-green-500 border border-green-500"
+        } ${
+          status === "Warning" && "text-yellow-500 border border-yellow-500"
+        } ${status === "error" && "text-red-500 border border-red-500"}
+        
+        rounded-lg   px-5 py-5   w-80 text-center`}
+      >
+        {error}
+      </h1>
       <form
         action=""
         onSubmit={handleOtp}

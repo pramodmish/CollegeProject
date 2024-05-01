@@ -72,26 +72,33 @@ exports.SignupUser = async (req, res) => {
 
 exports.otpVerify = async (req, res) => {
   const { otp } = req.body;
-  if (!otp) {
-    return res.status(400).json({
+  try {
+    if (!otp) {
+      return res.status(204).json({
+        status: false,
+        message: "bad request",
+      });
+    }
+    const user = await userModel.findOne({ otp: otp });
+    if (!user) {
+      return res.status(404).json({
+        status: false,
+        message: "otp expired",
+      });
+    }
+    user.isVerified = true;
+    user.otp = undefined;
+    await user.save();
+    const token = jwtToken.createToken(user._id);
+    res.cookie("token", token, { httpOnly: true });
+    res.status(201).json({
+      status: true,
+      message: "user verify successful",
+    });
+  } catch (error) {
+    res.status(400).json({
       status: false,
-      message: "bad request",
+      error: error.message,
     });
   }
-  const user = await userModel.findOne({ otp: otp });
-  if (!user) {
-    return res.status(404).json({
-      status: 404,
-      message: "user not found",
-    });
-  }
-  user.isVerified = true;
-  user.otp = undefined;
-  await user.save();
-  const token = jwtToken.createToken(user._id);
-  res.cookie("token", token, { httpOnly: true });
-  res.status(201).json({
-    status: true,
-    message: "user verify successful",
-  });
 };
