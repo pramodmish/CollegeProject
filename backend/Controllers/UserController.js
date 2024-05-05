@@ -94,6 +94,7 @@ exports.otpVerify = async (req, res) => {
     res.status(201).json({
       status: true,
       message: "user verify successful",
+      token,
     });
   } catch (error) {
     res.status(400).json({
@@ -101,4 +102,16 @@ exports.otpVerify = async (req, res) => {
       error: error.message,
     });
   }
+};
+
+exports.logout = (req, res) => {
+  res.clearCookie("token", {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "Logged out",
+  });
 };

@@ -2,14 +2,19 @@ import React, { useId, useState } from "react";
 import { Input, Button } from "./index";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function Register() {
   const id = useId();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [status, setStatus] = useState("");
-  const [error, setError] = useState("");
+  // const [status, setStatus] = useState("");
+  // const [error, setError] = useState("");
   const navigate = useNavigate();
+  const warnings = (data) => toast.warning(data);
+  const sucessful = (data) => toast.success(data);
+  const errors = (data) => toast.error(data);
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -21,15 +26,18 @@ function Register() {
       })
       .then((res) => {
         if (res.status === 400) {
-          setStatus("Error");
-          setError("Bad request");
+          // setStatus("Error");
+          errors("Bad request");
+          // setError("Bad request");
         } else if (res.status === 201) {
-          setStatus("Success");
+          // setStatus("Success");
           setTimeout(() => navigate("/otpVerify"), 5000);
-          setError("Reister successful");
+          sucessful("Reister successful");
+          // setError("Reister successful");
         } else if (res.status === 204) {
-          setStatus("Warning");
-          setError("All Fields must be filled");
+          // setStatus("Warning");
+          warnings("All Fields must be filled");
+          // setError("All Fields must be filled");
         }
         console.log(res);
       })
@@ -42,7 +50,7 @@ function Register() {
   };
   return (
     <div className="flex flex-col gap-5 justify-center items-center h-screen ">
-      <h1
+      {/* <h1
         className={`${
           status === "Success" && "text-green-500 border border-green-500"
         } ${
@@ -52,11 +60,11 @@ function Register() {
         } rounded-lg   px-5 py-5   w-80 text-center`}
       >
         {error}
-      </h1>
+      </h1> */}
       <form
         action=""
         onSubmit={handleSubmit}
-        className="flex flex-col  h-96 w-80 bg-slate-900 "
+        className="flex flex-col  h-auto w-80 bg-slate-900 p-5"
       >
         <h3 className="text-center font-bold">Sign Up</h3>
         <Input
@@ -88,6 +96,7 @@ function Register() {
           <Button className={`bg-green-500 `}>Register</Button>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 }

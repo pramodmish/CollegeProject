@@ -9,6 +9,8 @@ import Contact from "./pages/Contact.jsx";
 
 import { MainSection, Register } from "./components/index.js";
 import Otp from "./pages/Otp.jsx";
+import User from "./pages/User.jsx";
+import Login from "./pages/Login.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -33,6 +35,14 @@ const router = createBrowserRouter([
       {
         path: "otpVerify",
         element: <Otp />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "User",
+        element: <User />,
       },
     ],
   },
