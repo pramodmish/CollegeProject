@@ -5,12 +5,13 @@ function User() {
   const [user, setuser] = useState("");
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/v1/getCookie", {
+      .get("http://localhost:8000/api/v1/getCurUser", {
         withCredentials: true,
       })
       .then((res) => {
         if (res) {
-          setuser(res.data.data._id);
+          console.log(res.data.user.email);
+          setuser(res.data.user.email);
         }
       })
       .catch((err) => {

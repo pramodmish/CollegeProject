@@ -47,20 +47,20 @@ UserSchema.statics.signup = async function (userName, email, password, otp) {
   return user;
 };
 
-UserSchema.statics.login = async function (email, password) {
-  if (!email || !password) {
-    throw Error("All fields must be filled");
-  }
-  const User = await this.findOne({ email });
-  if (!User) {
-    throw Error("Incorrect email");
-  }
-  const match = await bcrypt.compare(password, User.password);
-  if (!match) {
-    Error("Incorrect password");
-  }
-  return user;
-};
+// UserSchema.statics.login = async function (email, password) {
+//   if (!email || !password) {
+//     throw Error("All fields must be filled");
+//   }
+//   const User = await this.findOne({ email });
+//   if (!User) {
+//     throw Error("Incorrect email");
+//   }
+//   const match = await bcrypt.compare(password, User.password);
+//   if (!match) {
+//     Error("Incorrect password");
+//   }
+//   return user;
+// };
 
 const user = mongoose.model("user", UserSchema);
 

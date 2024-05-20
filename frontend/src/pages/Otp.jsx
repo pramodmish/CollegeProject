@@ -4,10 +4,13 @@ import { Input, Button } from "../components/index";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { verify } from "../store/authSlice";
+import { useDispatch } from "react-redux";
 axios.defaults.withCredentials = true;
 function Otp() {
   const id = useId();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [otp, setOtp] = useState("");
   // const [status, setStatus] = useState("");
   // const [error, setError] = useState("");
@@ -29,22 +32,24 @@ function Otp() {
         } else if (res.status === 201) {
           // setStatus("success");
           // setError("user verify successful");
-          console.log(res);
+
+          console.log(res.data);
+          dispatch(verify(res.data));
           sucessful("user verify successful");
           setTimeout(() => {
-            // axios
-            //   .get("http://localhost:8000/api/v1/getCookie", {
-            //     withCredentials: true,
-            //   })
-            //   .then((res) => {
-            //     if (res) {
-            //       navigate("/User");
-            //     }
-            //   })
-            //   .catch((err) => {
-            //     console.log(err);
-            //   });
-            // localStorage.setItem("token", res.data.token);
+            axios
+              .get("http://localhost:8000/api/v1/getCurUser", {
+                withCredentials: true,
+              })
+              .then((res) => {
+                if (res) {
+                  navigate("/User");
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+            localStorage.setItem("token", res.data.token);
             navigate("/User");
           }, 3000);
         } else if (res.status === 204) {

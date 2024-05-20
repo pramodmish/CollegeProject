@@ -6,8 +6,9 @@ const router = express.Router();
 router
   .post("/signUp", userController.SignupUser)
   .post("/otpVerify", userController.otpVerify)
-  .get("/getCookie", authController.protect) //tempraray route for testing
+  // .get("/getCookie", authController.protect) //tempraray route for testing
   .post("/login", userController.login)
-  .get("/logout", userController.logout);
+  .get("/logout", userController.logout)
+  .get("/getCurUser", authController.protect, userController.getCurrentUser);
 
 module.exports = router;

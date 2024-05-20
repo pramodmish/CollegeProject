@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const userModel = require("../Controllers/UserController");
-exports.protect = async (req, res) => {
+exports.protect = async (req, res, next) => {
   const { token } = req.cookies;
   try {
     if (!token) {
@@ -10,14 +10,14 @@ exports.protect = async (req, res) => {
     }
     const decodedData = jwt.verify(token, process.env.JWT_SECRET_KEY);
     if (decodedData) {
-      return res.status(200).json({
-        data: decodedData,
-      });
+      req.user = decodedData;
     }
+    console.log(req.user);
   } catch (error) {
     res.status(404).json({
       status: false,
       message: error.message,
     });
   }
+  next();
 };
