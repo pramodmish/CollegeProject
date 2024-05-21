@@ -7,7 +7,7 @@ function Input({ type, className, id, label, ...props }, ref) {
       <input
         type={type}
         id={id}
-        className={`${className} px-2 py-1  bg-slate-900 hover:border-b-2 hover:border-blue-500 border-b-2 border-slate-800  outline-none `}
+        className={`${className} px-2 py-2  bg-slate-900 border-2  border-gray-400   `}
         ref={ref}
         {...props}
       />

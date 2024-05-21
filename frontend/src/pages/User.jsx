@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Editor from "../components/Editor";
+import { Input, Button } from "../components/index";
 axios.defaults.withCredentials = true;
 function User() {
   const [user, setuser] = useState("");
@@ -20,8 +22,22 @@ function User() {
   }, []);
   return (
     <>
-      <div className="flex justify-end  h-screen ">
-        <h1 className="px-2 py1">{user}</h1>
+      <div className="flex justify-center items-center h-screen ">
+        <form action="" className="flex flex-col space-y-2">
+          <div className="flex justify-end  px-3 py-3  space-y-3">
+            <Button className={`bg-green-500`}>ADD</Button>
+          </div>
+          <div>
+            <Input
+              className="outline-none w-[800px]"
+              placeholder="Enter title for your blog"
+            />
+          </div>
+          <div>
+            <Editor />
+          </div>
+          <br />
+        </form>
       </div>
     </>
   );
