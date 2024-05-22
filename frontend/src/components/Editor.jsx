@@ -19,9 +19,9 @@ function Editor() {
   const id = useId();
   const [value, setValue] = useState("");
   return (
-    <div className="px-3 py-3">
+    <div className="px-3 py-3 lg:h-96">
       <ReactQuill
-        className="h-96 w-[800px]"
+        className="h-[300px] w-96 md:h-[300px] md:w-[600px] lg:w-[800px]  lg:h-[400px] "
         id={id}
         theme="snow"
         value={value}

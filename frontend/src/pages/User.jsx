@@ -23,21 +23,22 @@ function User() {
   return (
     <>
       <div className="flex justify-center items-center h-screen ">
-        <form action="" className="flex flex-col space-y-2">
-          <div className="flex justify-end  px-3 py-3  space-y-3">
-            <Button className={`bg-green-500`}>ADD</Button>
-          </div>
-          <div>
-            <Input
-              className="outline-none w-[800px]"
-              placeholder="Enter title for your blog"
-            />
-          </div>
-          <div>
-            <Editor />
-          </div>
-          <br />
-        </form>
+        <div className="h-full w-full flex justify-center md:justify-center ">
+          <form action="" className="flex flex-col space-y-2">
+            <div className="flex justify-end  px-3 py-3  space-y-3">
+              <Button className={`bg-green-500`}>ADD</Button>
+            </div>
+            <div>
+              <Input
+                className="outline-none w-96 md:w-[600px] lg:w-[800px]"
+                placeholder="Enter title for your blog"
+              />
+            </div>
+            <div>
+              <Editor />
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );
