@@ -1,6 +1,7 @@
 import React, { useState, useId } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { forwardRef } from "react";
 const modules = {
   toolbar: [
     [{ font: [] }],
@@ -15,18 +16,19 @@ const modules = {
     ["clean"],
   ],
 };
-function Editor() {
+function Editor({ onChange, value }, ref) {
   const id = useId();
-  const [value, setValue] = useState("");
+
   return (
-    <div className="px-3 py-3 lg:h-96">
+    <div className="px-3 py-3 lg:h-96 lg:w-[100%%] md:w-[100%]">
       <ReactQuill
-        className="h-[300px] w-96 md:h-[300px] md:w-[600px] lg:w-[800px]  lg:h-[400px] "
+        className="h-[300px] sm:w-full w-96 md:h-[300px] md:w-[100%] lg:w-[100%] lg:h-[400px] "
         id={id}
         theme="snow"
         value={value}
-        onChange={setValue}
+        onChange={onChange}
         modules={modules}
+        ref={ref}
       />
     </div>
   );

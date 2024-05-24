@@ -90,15 +90,17 @@ function Header() {
               <Link to="/login">login</Link>
             </div>
           ) : (
-            // <div className="flex space-x-5">
-            //   <h1 className="w-16 overflow-hidden ">{user}</h1>
-            // </div>
-            <Button
-              className="bg-red-500 px-2 py-1 rounded-md"
-              onClick={handleLogout}
-            >
-              logout
-            </Button>
+            <>
+              <div className="flex space-x-5">
+                <h1 className="w-16 overflow-hidden ">{user}</h1>
+              </div>
+              <Button
+                className="bg-red-500 px-2 py-1 rounded-md"
+                onClick={handleLogout}
+              >
+                logout
+              </Button>
+            </>
             // <div className="bg-red-500 px-2 py-1 rounded-md">
             //   <Link to="/login">logout</Link>
             // </div>

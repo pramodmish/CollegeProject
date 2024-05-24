@@ -2,7 +2,7 @@ import React from "react";
 import { forwardRef } from "react";
 function Input({ type, className, id, label, ...props }, ref) {
   return (
-    <div className="flex flex-col px-3 py-3 justify-center space-y-3">
+    <div className="flex flex-col px-3 py-3 justify-center space-y-3 ">
       {label && <label>{label}</label>}
       <input
         type={type}

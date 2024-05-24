@@ -48,3 +48,43 @@ exports.getAllPost = async (req, res) => {
     });
   }
 };
+
+//get One blog
+exports.getBlog = async (req, res) => {
+  const id = req.user._id;
+  try {
+    const blog = await blogModel.findOne({ userId: id });
+    if (!blog) {
+      return res.status(404).json({
+        status: false,
+        message: "not found",
+      });
+    }
+    res.status(200).json({
+      status: true,
+      blog,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: false,
+      message: "Internal server error",
+    });
+  }
+};
+
+//delete blog
+exports.deleteBlog = async (req, res) => {
+  const id = req.user._id;
+  try {
+    await blogModel.deleteOne({ userId: id });
+    res.status(200).json({
+      status: true,
+      message: "delete blog successful",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: false,
+      message: "Internal server error",
+    });
+  }
+};
