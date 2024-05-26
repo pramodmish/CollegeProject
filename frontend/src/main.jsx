@@ -6,7 +6,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
-
+import Blog from "./pages/Blog.jsx";
 import { MainSection, Register } from "./components/index.js";
 import Otp from "./pages/Otp.jsx";
 import User from "./pages/User.jsx";
@@ -46,13 +46,15 @@ const router = createBrowserRouter([
         path: "User",
         element: <User />,
       },
+      {
+        path: "blog",
+        element: <Blog />,
+      },
     ],
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router}></RouterProvider>
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <RouterProvider router={router}></RouterProvider>
+  </Provider>
 );

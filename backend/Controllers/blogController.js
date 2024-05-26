@@ -28,9 +28,8 @@ exports.addBlog = async (req, res) => {
 
 //get All blogs
 exports.getAllPost = async (req, res) => {
-  const id = req.user._id;
   try {
-    const blogs = await blogModel.find({ userId: id });
+    const blogs = await blogModel.find();
     if (!blogs) {
       return res.status(404).json({
         status: false,
