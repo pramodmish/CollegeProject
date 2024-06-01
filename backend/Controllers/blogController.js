@@ -48,6 +48,28 @@ exports.getAllPost = async (req, res) => {
   }
 };
 
+exports.showBlog = async (req, res) => {
+  const id = req.body.id;
+  try {
+    const blog = await blogModel.findOne({ _id: id });
+    if (!blog) {
+      return res.status(404).json({
+        status: false,
+        message: "not found",
+      });
+    }
+    res.status(200).json({
+      status: true,
+      blog,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: false,
+      message: "Internal server error",
+    });
+  }
+};
+
 //get One blog
 exports.getBlog = async (req, res) => {
   const id = req.user._id;

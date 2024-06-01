@@ -11,6 +11,7 @@ function User() {
   const [user, setuser] = useState("");
   const [blog, setBlog] = useState("");
   const [title, setTitle] = useState("");
+
   const sucessful = (data) => toast.success(data);
   useEffect(() => {
     axios
@@ -81,6 +82,7 @@ function User() {
             </div>
           </div>
         </div>
+
         <ToastContainer />
       </div>
     </>

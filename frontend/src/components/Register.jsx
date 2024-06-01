@@ -69,13 +69,15 @@ function Register() {
         <h3 className="text-center font-bold">Sign Up</h3>
         <Input
           label="User Name:"
+          type="text"
           id={id}
           placeholder="Enter your name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <Input
-          label="Email::"
+          label="Email:"
+          type="email"
           id={id}
           placeholder="Enter your email"
           value={email}
@@ -83,6 +85,7 @@ function Register() {
         />
         <Input
           label="password:"
+          type="password"
           id={id}
           placeholder="Enter your password"
           value={password}

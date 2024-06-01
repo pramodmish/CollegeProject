@@ -83,16 +83,18 @@ function Header() {
               Contact Us
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/blog"
-              className={({ isActive }) =>
-                `${isActive ? "text-orange-500" : "text-white"}`
-              }
-            >
-              Blogs
-            </NavLink>
-          </li>
+          {authStatus && (
+            <li>
+              <NavLink
+                to="/blog"
+                className={({ isActive }) =>
+                  `${isActive ? "text-orange-500" : "text-white"}`
+                }
+              >
+                Blogs
+              </NavLink>
+            </li>
+          )}
         </ul>
         <div className="flex space-x-5">
           {!authStatus ? (
